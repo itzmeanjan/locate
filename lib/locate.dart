@@ -1,6 +1,6 @@
 import 'dart:async';
 import 'package:flutter/services.dart';
-import 'MyLocation.dart';
+import 'my_location.dart';
 
 class Locate {
   static Locate _locate;
