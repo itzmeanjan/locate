@@ -114,11 +114,21 @@
       <excludeFolder url="file://$MODULE_DIR$/../example/build/locate/generated/not_namespaced_r_class_sources" />
       <excludeFolder url="file://$MODULE_DIR$/../example/build/locate/generated/source/r" />
       <excludeFolder url="file://$MODULE_DIR$/../example/build/locate/intermediates/aapt_friendly_merged_manifests" />
+      <excludeFolder url="file://$MODULE_DIR$/../example/build/locate/intermediates/annotation_processor_list" />
+      <excludeFolder url="file://$MODULE_DIR$/../example/build/locate/intermediates/annotations_typedef_file" />
+      <excludeFolder url="file://$MODULE_DIR$/../example/build/locate/intermediates/annotations_zip" />
+      <excludeFolder url="file://$MODULE_DIR$/../example/build/locate/intermediates/blame" />
       <excludeFolder url="file://$MODULE_DIR$/../example/build/locate/intermediates/check-manifest" />
+      <excludeFolder url="file://$MODULE_DIR$/../example/build/locate/intermediates/consumer_proguard_file" />
       <excludeFolder url="file://$MODULE_DIR$/../example/build/locate/intermediates/incremental" />
+      <excludeFolder url="file://$MODULE_DIR$/../example/build/locate/intermediates/intermediate-jars" />
+      <excludeFolder url="file://$MODULE_DIR$/../example/build/locate/intermediates/javac" />
+      <excludeFolder url="file://$MODULE_DIR$/../example/build/locate/intermediates/jniLibs" />
+      <excludeFolder url="file://$MODULE_DIR$/../example/build/locate/intermediates/library_and_local_jars_jni" />
       <excludeFolder url="file://$MODULE_DIR$/../example/build/locate/intermediates/library_assets" />
       <excludeFolder url="file://$MODULE_DIR$/../example/build/locate/intermediates/lint_jar" />
       <excludeFolder url="file://$MODULE_DIR$/../example/build/locate/intermediates/merged_manifests" />
+      <excludeFolder url="file://$MODULE_DIR$/../example/build/locate/intermediates/packaged-classes" />
       <excludeFolder url="file://$MODULE_DIR$/../example/build/locate/intermediates/packaged_res" />
       <excludeFolder url="file://$MODULE_DIR$/../example/build/locate/intermediates/public_res" />
       <excludeFolder url="file://$MODULE_DIR$/../example/build/locate/intermediates/res" />
@@ -126,7 +136,10 @@
       <excludeFolder url="file://$MODULE_DIR$/../example/build/locate/intermediates/shader_assets" />
       <excludeFolder url="file://$MODULE_DIR$/../example/build/locate/intermediates/shaders" />
       <excludeFolder url="file://$MODULE_DIR$/../example/build/locate/intermediates/symbols" />
+      <excludeFolder url="file://$MODULE_DIR$/../example/build/locate/intermediates/transforms" />
+      <excludeFolder url="file://$MODULE_DIR$/../example/build/locate/kotlin" />
       <excludeFolder url="file://$MODULE_DIR$/../example/build/locate/outputs" />
+      <excludeFolder url="file://$MODULE_DIR$/../example/build/locate/tmp" />
     </content>
     <orderEntry type="jdk" jdkName="Android API 28 Platform" jdkType="Android SDK" />
     <orderEntry type="sourceFolder" forTests="false" />
