@@ -16,27 +16,10 @@ A Flutter plugin to work with Android Location Services.
 
 ## How to use it ???
 
-  - [locate.dart](https://github.com/itzmeanjan/locate/blob/master/lib/locate.dart) has four classes.
-  - Locate class is the one that you should be concerned of.
-  - It has a singleton based architecture.
+  Locate class has a singleton based architecture i.e. only a single instance can be created at a time.
+  This class has four important methods that you'll be mostly using, which are as follows.
   
-  ```
-    static Locate _locate;
-    factory Locate(LocationDataCallBack callBack) {
-      if (_locate == null) _locate = Locate._internal(callBack);
-      return _locate;
-    }
-    Locate._internal(this._locationDataCallBack);
-    LocationDataCallBack _locationDataCallBack;
-  ```
-  
-  - This class has four important methods that you'll be mostly using.
-  ```
-    Future<bool> requestLocationPermission({String provider: 'gps'}) async{}
-    Future<bool> enableLocation() async {}
-    Future<bool> startLocationUpdate({String locationServiceProvider: '1', String locationProvider: 'gps'}) async{}
-    Future<bool> stopLocationUpdate() async{} 
-  ```
+  ### requestLocationPermission() :
   
   - At the beginning try calling **requestLocationPermission()**, to check whether location permission is avaible not not.
   - This method takes one optional positional argument *provider*, which defaults to **gps**.
@@ -45,8 +28,14 @@ A Flutter plugin to work with Android Location Services.
   - After it completes in **async** fashion, this returns a bool.
   - If you get true, this means user has permitted you to access FINE_LOCATION of Android Device.
   - Else good luck to you ;)
+  
+  ### enableLocation() :
+  
   - So, if you get true, then lets go, to invoke **enableLocation()**, so that we can request user to enable location of device.
   - This also completes in **async** fashion and then returns true or false based on the result of the Activity.
+  
+  ### startLocationUpdate() :
+  
   - If we get true, we're good to call **startLocationUpdate()**.
   - Well this method takes two optional positional parameters.
   - Imagine you have **ACCESS_FINE_LOCATION** permission for your app, then it'd be always better to invoke **startLocationUpdate()**
@@ -61,7 +50,7 @@ A Flutter plugin to work with Android Location Services.
   - Remember it's required to have **ACCESS_FINE_LOCATION** permission in order to user PlayService based Location using **FusedLocationProviderClient**.
   - If you're satisfied with **ACCESS_COARSE_LOCATION**, then request for that permission using
   ``` requestLocationPermission(provider: LocationProvider.Network); ```
-  - Well LocationProvider is also a class with two properties acting as constants.
+  - Well LocationProvider is also a class with two properties.
   ```
   class LocationProvider {
   static const String Network = 'network';
@@ -82,11 +71,14 @@ A Flutter plugin to work with Android Location Services.
   - Locate has a private method **_onData(dynamic event){}**, which gets invoked everytime App receive a Location Update from Platform.
   - This method extracts location data and stores current location info in an instance of **MyLocation class**.
   - If some error occurs, **_onError(dynamic error){}** gets invoked.
-  - Now the important question is **how to get this Location Data in you app's StateFulWidget Class and update that widget in dynamic fashion by calling *setState()* ??**
-  - So I've added another **abstract class LocationDataCallBack**, which has **onData(Map<String, String> myLocatoin){}**,
+  
+  
+  #### How to get this Location Data in you app's StateFulWidget Class and update that widget in dynamic fashion by calling *setState()* ??
+  
+   So I've added another *abstract class LocationDataCallBack*, which has *onData(Map<String, String> myLocatoin){}*,
   that needs to be overridden wherever we implement **LocationDataCallBack**.
   
-  - So in example app's, [main.dart](https://github.com/itzmeanjan/locate/blob/master/example/lib/main.dart), I've implemented LocationDataCallBack in the class which extends State class.
+  - In example app's, [main.dart](https://github.com/itzmeanjan/locate/blob/master/example/lib/main.dart), I've implemented LocationDataCallBack in the class which extends State class.
   - Now we can simply take the data from the Map<String, String> and update UI.
   - Sample implementation of **onData**
   ```
@@ -98,6 +90,8 @@ A Flutter plugin to work with Android Location Services.
     });
   }
   ```
+  
+  ### stopLocationUpdate() :
   
   - Now it's time to stop Location service. Lets call **stopLocationUpdate()**. And we're good to go.
   
