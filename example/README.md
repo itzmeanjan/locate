@@ -2,15 +2,17 @@
 
 Demonstrates how to use the locate plugin.
 
-## Getting Started
+## Example App Screen Captures ::
 
-This project is a starting point for a Flutter application.
+  ![screenCapture1](https://github.com/itzmeanjan/locate/blob/master/example/Screenshot_20190307-015826.png)
+  ![screenCapture2](https://github.com/itzmeanjan/locate/blob/master/example/Screenshot_20190307-015835.png)
+  ![screenCapture3](https://github.com/itzmeanjan/locate/blob/master/example/Screenshot_20190307-015842.png)
+  ![screenCapture4](https://github.com/itzmeanjan/locate/blob/master/example/Screenshot_20190307-015853.png)
 
-A few resources to get you started if this is your first Flutter project:
-
-- [Lab: Write your first Flutter app](https://flutter.io/docs/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://flutter.io/docs/cookbook)
+## Getting Started ::
 
 For help getting started with Flutter, view our 
 [online documentation](https://flutter.io/docs), which offers tutorials, 
 samples, guidance on mobile development, and a full API reference.
+
+Hope it was helpful :)
