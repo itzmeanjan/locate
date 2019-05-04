@@ -25,6 +25,7 @@ class MyLocation {
   String provider;
   int satelliteCount;
 
+  /// parses time to pretty format 
   String getParsedTimeString() {
     if (this.time.isUtc) this.time = this.time.toLocal();
     Map<String, String> mapObj = {
@@ -53,36 +54,32 @@ class MyLocation {
     return '${mapObj['day']}/${mapObj['month']}/${mapObj['year']} ${mapObj['hour']}:${mapObj['minute']}:${mapObj['second']}';
   }
 
-  double getSpeedInKiloMetersPerHour() {
-    return (this.speed * 3600) / 1000;
-  }
+  /// by default speed stays in meters/ sec
+  double getSpeedInKiloMetersPerHour() => (this.speed * 3600) / 1000;
 
-  double getSpeedAccuracyInKiloMetersPerHour() {
-    return (this.speedAccuracy * 3600) / 1000;
-  }
+  /// by default speedAccuracy stays in meters/ sec
+  double getSpeedAccuracyInKiloMetersPerHour() =>
+      (this.speedAccuracy * 3600) / 1000;
 
-  String bearingToDirectionName() {
-    Map<int, String> tmpMap = {
-      0: 'North',
-      1: 'North North East',
-      2: 'North East',
-      3: 'East North East',
-      4: 'East',
-      5: 'East South East',
-      6: 'South East',
-      7: 'South South East',
-      8: 'South',
-      9: 'South South West',
-      10: 'South West',
-      11: 'West South West',
-      12: 'West',
-      13: 'West North West',
-      14: 'North West',
-      15: 'North North West'
-    };
-    if (this.bearing != null)
-      return tmpMap[
-      (((this.bearing + (360 / 16) / 2) % 360) / (360 / 16)).floor()];
-    return "NA";
-  }
+  /// angle of movement to direction name conversion
+  String bearingToDirectionName() => this.bearing != null
+      ? <int, String>{
+          0: 'North',
+          1: 'North North East',
+          2: 'North East',
+          3: 'East North East',
+          4: 'East',
+          5: 'East South East',
+          6: 'South East',
+          7: 'South South East',
+          8: 'South',
+          9: 'South South West',
+          10: 'South West',
+          11: 'West South West',
+          12: 'West',
+          13: 'West North West',
+          14: 'North West',
+          15: 'North North West'
+        }[(((this.bearing + (360 / 16) / 2) % 360) / (360 / 16)).floor()]
+      : "NA";
 }
