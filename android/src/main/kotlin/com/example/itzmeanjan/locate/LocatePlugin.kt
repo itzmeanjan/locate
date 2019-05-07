@@ -39,7 +39,7 @@ class LocatePlugin(private val registrar: Registrar, private val flutterView: Fl
         private var locationSettingsCallBack: LocationSettingsCallBack? = null
         @JvmStatic
         fun registerWith(registrar: Registrar) {
-            val methodChannel = MethodChannel(registrar.messenger(), "com.example.itzmeanjan.locate.methodChannel")
+            val methodChannel = MethodChannel(registrar.messenger(), "io.github.itzmeanjan.locate.methodChannel")
             registrar.addRequestPermissionsResultListener { requestCode, permissions, grantResults ->
                 when (requestCode) {
                     999 -> {
@@ -114,7 +114,7 @@ class LocatePlugin(private val registrar: Registrar, private val flutterView: Fl
                 enableLocation()
             }
             "startLocationUpdate" -> { // starts location update listening service and sends data to UI using eventChannel
-                eventChannel = EventChannel(flutterView, "com.example.itzmeanjan.locate.eventChannel")
+                eventChannel = EventChannel(flutterView, "io.github.itzmeanjan.locate.eventChannel")
                 result.success(1)
                 eventChannel?.setStreamHandler(
                         object : EventChannel.StreamHandler {

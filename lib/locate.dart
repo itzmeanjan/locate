@@ -2,32 +2,36 @@ import 'dart:async' show StreamController;
 import 'package:flutter/services.dart'
     show MethodChannel, EventChannel, PlatformException;
 import 'my_location.dart';
+import 'dart:async' show Completer;
 
 class Locate {
-  // Bridge between Platform level & Flutter
+  /// Bridge between Platform level & Flutter
   MethodChannel _methodChannel;
 
-  // Helps us to get a stream of location data feed from platform.
+  /// Helps us to get a stream of location data feed from platform.
   EventChannel _eventChannel;
 
-  // location service state holder, the name is descriptive enough
+  /// location service state holder, the name is descriptive enough
   bool _areWeGettingLocationUpdate;
 
-  /// Main class, which does all heavy liftings, requests location permission, enables location and finally gets you location data feed in Stream<MyLocation> format
+  /// Controls location data flow from API endpoint
+  StreamController streamController;
+
+  /// Main class, which does all heavy lifting, requests location permission, enables location and finally gets you location data feed in Stream<MyLocation> format
   Locate() {
     _methodChannel =
         const MethodChannel('io.github.itzmeanjan.locate.methodChannel');
     _areWeGettingLocationUpdate = false;
   }
 
+  /// whenever you require location data, first make sure you have called this method,
+  /// to check whether location permission is available or not.
+  /// if permission is already granted, it'll simply return true
+  /// is runtime permission is denied by user, it'll return false.
+  /// decision to perform further operation needs to be taken by watching this methods result
+  /// well it's async ;)
   Future<bool> requestLocationPermission(
       {String provider: LocationProvider.GPS}) async {
-    // whenever you require location data, first make sure you have called this method,
-    // to check whether location permission is available or not.
-    // if permission is already granted, it'll simply return true
-    // is runtime permission is denied by user, it'll return false.
-    // decision to perform further operation needs to be taken by watching this methods result
-    // well it's async ;)
     try {
       return await _methodChannel.invokeMethod(
           'requestLocationPermission', <String, int>{
@@ -65,8 +69,6 @@ class Locate {
       {String locationServiceProvider:
           LocationServiceProvider.LocationManagerBasedLocation,
       String locationProvider: LocationProvider.GPS}) {
-    StreamController streamController;
-
     MyLocation extractLocationData(dynamic event) => MyLocation(
         event['longitude'],
         event['latitude'],
@@ -103,7 +105,7 @@ class Locate {
 
     init() {
       try {
-        if (!gettingLocationUpdate()) {
+        if (!areWeGettingLocationUpdate()) {
           _eventChannel =
               const EventChannel('io.github.itzmeanjan.locate.eventChannel');
           _methodChannel.invokeMethod('startLocationUpdate', <String, String>{
@@ -125,7 +127,7 @@ class Locate {
       }
     }
 
-    if (!gettingLocationUpdate()) {
+    if (!areWeGettingLocationUpdate()) {
       streamController = StreamController<MyLocation>(
         onCancel: cancel,
         onListen: init,
@@ -135,8 +137,26 @@ class Locate {
     return streamController.stream;
   }
 
+  /// stops live location data feed from Platform
+  Future<bool> stopLocationDataFeed() {
+    var completer = Completer<bool>();
+    try {
+      _methodChannel.invokeMethod('stopLocationUpdate').then((result) {
+        if (result == 1) {
+          _eventChannel = null;
+          _areWeGettingLocationUpdate = false;
+          completer.complete(true);
+        }
+      });
+    } on PlatformException {
+      streamController.close();
+      completer.complete(false);
+    }
+    return completer.future;
+  }
+
   /// If you need to know whether we're still getting location data, this can be queried by calling this method
-  bool gettingLocationUpdate() => _areWeGettingLocationUpdate;
+  bool areWeGettingLocationUpdate() => _areWeGettingLocationUpdate;
 }
 
 /// How to get Location data from system, either using android location manager or using google mobile service base location mamager
