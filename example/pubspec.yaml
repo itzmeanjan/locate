@@ -1,6 +1,8 @@
 name: locate_example
 description: Demonstrates how to use the locate plugin.
-publish_to: 'none'
+author: ANJAN ROY <anjanroy@yandex.com>
+repository: 'https://github.com/itzmeanjan/locate'
+publish_to: 'https://pub.dev/'
 
 environment:
   sdk: ">=2.1.0 <3.0.0"

@@ -88,8 +88,10 @@ class Locate {
         streamController.add(extractLocationData(event));
     }
 
+    /// closes stream of data
     stop() => streamController.close();
 
+    /// cancels location update and closes stream of location data
     cancel() async {
       try {
         await _methodChannel.invokeMethod('stopLocationUpdate').then((result) {
@@ -103,6 +105,7 @@ class Locate {
       }
     }
 
+    /// initializes location data feed subscription
     init() {
       try {
         if (!areWeGettingLocationUpdate()) {
@@ -115,7 +118,7 @@ class Locate {
             if (result == 1) {
               _eventChannel.receiveBroadcastStream().listen(
                     onData,
-                    onError: () => streamController
+                    onError: (e) => streamController
                         .addError("Error: Can't Get Location Data"),
                   ); // registers broadcastListener
               _areWeGettingLocationUpdate = true;
@@ -137,7 +140,7 @@ class Locate {
     return streamController.stream;
   }
 
-  /// stops live location data feed from Platform
+  /// Stops live location data feed from Platform
   Future<bool> stopLocationDataFeed() {
     var completer = Completer<bool>();
     try {

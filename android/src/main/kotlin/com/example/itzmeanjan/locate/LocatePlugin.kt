@@ -125,6 +125,7 @@ class LocatePlugin(private val registrar: Registrar, private val flutterView: Fl
                                     val locationProvider: String? = call.argument<String>("locationProvider")
                                     if (locationServiceProvider == "0") {
                                         if (isGooglePlayServiceAvailable()) {
+                                            // checks presence of google play services on device
                                             fusedLocationProviderClient = FusedLocationProviderClient(activity.application)
                                             locationCallback = MyLocationCallBack(event = p1)
                                             if (locationCallback != null) {

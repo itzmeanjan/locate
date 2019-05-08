@@ -1,8 +1,9 @@
 name: locate
 description: A Flutter plugin to work with Android Location Services.
-version: 1.0.0
+version: 1.1.0
 author: ANJAN ROY <anjanroy@yandex.com>
-homepage: https://github.com/itzmeanjan/locate
+homepage: 'https://github.com/itzmeanjan/locate'
+publish_to: 'https://pub.dev/'
 
 environment:
   sdk: ">=2.1.0 <3.0.0"
