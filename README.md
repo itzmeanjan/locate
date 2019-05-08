@@ -6,6 +6,8 @@ A Flutter plugin to work with Android Location Services(GPS/ Network).
 
 This flutter plugin can be used on Android for fetching Location Data using either Google Play Services based Location or LocationManager based Location.
 
+Well this plugin is has **androidX** support enabled.
+
 Even you can specify whether to use Network provider or GPS provider as Location Data Provider.
 
 Don't forget to add following permission in you AndroidManifest.xml.
@@ -68,6 +70,14 @@ _locate.getLocationDataFeed()
                             cancelOnError: true, // if some error occurs, Stream will be closed
                             onError: (e) => print(e), // error is displayed
                           );
+```
+
+Aah I just forgot to mention one thing, how to stop listening location update.
+
+```dart
+_locate.stopLocationDataFeed().then((bool result) {
+  // do some UI updation kind of work/ or something else
+});
 ```
 
 ### what's MyLocation
