@@ -1,3 +1,5 @@
+<p align="center"><img src="/logo/logotype-horizontal.png"></p>
+
 # locate
 
 A Flutter plugin to work with Android Location Services(GPS/ Network).
