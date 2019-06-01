@@ -4,7 +4,7 @@
 
 A Flutter plugin to work with Android Location Services(GPS/ Network).
 
-This flutter plugin is availble for use [here](). 
+**This flutter plugin is readily availble for [use](https://pub.dev/packages/locate).** 
 
 ## usage
 
