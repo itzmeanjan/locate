@@ -10,7 +10,7 @@ A Flutter plugin to work with Android Location Services(GPS/ Network).
 
 This flutter plugin can be used on Android for fetching Location Data using either Google Play Services based Location or LocationManager based Location.
 
-Well this plugin is has **androidX** support enabled.
+Well this plugin has **androidX** support enabled.
 
 Even you can specify whether to use Network provider or GPS provider as Location Data Provider.
 
