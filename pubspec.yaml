@@ -1,5 +1,5 @@
 name: locate
-description: A Flutter plugin to fetch Location Data Feed on Android.
+description: A Flutter plugin to fetch GPS/ Network based Location Data Feed on Android.
 version: 1.2.0
 author: Anjan Roy <anjanroy@yandex.com>
 homepage: 'https://github.com/itzmeanjan/locate'

@@ -2,7 +2,7 @@
 
 # locate
 
-A Flutter plugin to work with Android Location Services(GPS/ Network).
+A Flutter plugin to fetch GPS/ Network based Location Data Feed on Android.
 
 **This flutter plugin is readily availble for [use](https://pub.dev/packages/locate).** 
 
