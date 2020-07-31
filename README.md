@@ -1,4 +1,4 @@
-<p align="center"><img src="/logo/logotype-horizontal.png"></p>
+![logotype-horizontal](./logo/logotype-horizontal.png)
 
 # locate
 
@@ -146,7 +146,11 @@ getSpeedInKiloMetersPerHour();
 getParsedTimeString();
 ```
 
-## notes
+## example
+
+Here's an [example](./example) application using all these API(s).
+
+# notes
 
 You can also set some optional named parameters while invoking methods from *Locate* class.
 
