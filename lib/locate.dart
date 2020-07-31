@@ -3,6 +3,8 @@ import 'package:flutter/services.dart'
     show MethodChannel, EventChannel, PlatformException;
 import 'my_location.dart';
 import 'dart:async' show Completer;
+import 'locationProvider.dart';
+import 'locationServiceProvider.dart';
 
 class Locate {
   /// Bridge between Platform level & Flutter
@@ -160,16 +162,4 @@ class Locate {
 
   /// If you need to know whether we're still getting location data, this can be queried by calling this method
   bool areWeGettingLocationUpdate() => _areWeGettingLocationUpdate;
-}
-
-/// How to get Location data from system, either using android location manager or using google mobile service base location mamager
-class LocationServiceProvider {
-  static const String GMSBasedLocation = '0';
-  static const String LocationManagerBasedLocation = '1';
-}
-
-/// Location data provider identifier, either GPS and Network based fine location data or Network based coarse location data
-class LocationProvider {
-  static const String Network = 'network';
-  static const String GPS = 'gps';
 }

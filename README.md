@@ -2,60 +2,85 @@
 
 # locate
 
-A Flutter plugin to work with Android Location Services(GPS/ Network).
+A Flutter plugin to fetch GPS/ Network based Location Data Feed on Android.
 
 **This flutter plugin is readily availble for [use](https://pub.dev/packages/locate).** 
 
-## usage
+# intro
 
-This flutter plugin can be used on Android for fetching Location Data using either Google Play Services based Location or LocationManager based Location.
+`locate` can be used on Android for fetching Location Data Feed.
 
-Well this plugin is has **androidX** support enabled.
+Two location service providers are available
 
-Even you can specify whether to use Network provider or GPS provider as Location Data Provider.
+- Google Mobile Services i.e. GMS based _FusedLocationProvider_ **( this is recommended )**
+- Standard Android _LocationManager_ **( in this case you get freedom to choose which provider to use )**
+  - Network provider
+  - GPS provider
 
-Don't forget to add following permission in you AndroidManifest.xml.
+It has **androidX** support, along with latest version of all dependencies.
 
-```xml
-<uses-permission android:name="android.permission.ACCESS_FINE_LOCATION"/>
+# installation
+
+- Add `locate` as dependency in in your flutter project's pubspec.yaml
+
+```yaml
+dependencies:
+  locate: ^1.1.0
 ```
 
-If you're planning to use Google Play Services based FusedLocationProvider, request for *ACCESS_FINE_LOCATION*.
+- Fetch flutter packages from pub.dev
 
-Otherwise you may only request for *ACCESS_COARSE_LOCATION*.
-
-```xml
-<uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION"/>
+```bash
+$ flutter pub get
 ```
 
+- Import `locate` in your dart code & start getting location data feed
 
-### how to use API
+```dart
+import 'package:locate/locate.dart';
+```
 
-Get an intance of *Locate* class.
+# usage
+
+## permission
+
+- First thing first, add permission declaration in your project's `AndroidManifest.xml`.
+
+  - If you're planning to use Google Mobile Services based _FusedLocationProvider_, request for *ACCESS_FINE_LOCATION*, which automagically selects location data source for you.
+  - Otherwise you may only request for 
+    - *ACCESS_FINE_LOCATION* _( GPS based location data )_
+    - *ACCESS_COARSE_LOCATION* _( Network based location data )_
+
+```xml
+<uses-permission android:name="android.permission.ACCESS_{FINE, COARSE}_LOCATION"/>
+```
+
+## API
+
+- Get an intance of *Locate*.
 
 ```dart
 var _locate = Locate();
 ```
 
-Make sure you first request for Location Permission from user.
-
+- Let's first request Location Access Permission from user.
 
 ```dart
 _locate.requestLocationPermission().then((bool result) {
                   if (result)
                     // we're good to go
                   else
-                    // you may be interested in letting user know about it, that location access permission is required
+                    // let user know it's required
                   });
 ```
 
-Now time to enable Location.
+- Time to enable Location.
 
 ```dart
 _locate.enableLocation().then((bool result) {
                       if (result) {
-                        // setState(() => _areWeGettingLocationUpdate = true);
-                        // here you may be interested in updating UI and the request for location Data.
+                        // update UI & request *locate* for location Data
+                        setState(() => _areWeGettingLocationUpdate = true);
                         // Location data will be fetched and delivered as Stream<MyLocation>
                       else
                         // user didn't enable location
@@ -63,20 +88,20 @@ _locate.enableLocation().then((bool result) {
                     });
 ```
 
-And finally, let's request for getting Location Data Feed.
+- Now we start getting Location Data Feed.
 
 ```dart
 _locate.getLocationDataFeed()
                           ..listen(
                             // we listen for location data, which is received as stream
                             (MyLocation data) =>
-                                setState(() => _locationData.add(data)), // as soon as data received,will update UI/ perform some other task using location data.
-                            cancelOnError: true, // if some error occurs, Stream will be closed
-                            onError: (e) => print(e), // error is displayed
+                                setState(() => _locationData.add(data)), // as soon as data received, will update UI/ perform some other task using location data.
+                            cancelOnError: true,
+                            onError: (e) => print(e),
                           );
 ```
 
-Aah I just forgot to mention one thing, how to stop listening location update.
+- Aah I just forgot to mention one thing, *how to stop listening location update ?*
 
 ```dart
 _locate.stopLocationDataFeed().then((bool result) {
@@ -84,10 +109,9 @@ _locate.stopLocationDataFeed().then((bool result) {
 });
 ```
 
-### what's MyLocation
+## what's in **MyLocation** class ?
 
-*MyLocation* class can be thought of as a Location Data Container.
-
+- *MyLocation* class can be thought of as a Location Data container & manipulator.
 
 ```dart
 /// constructor of MyLocation
@@ -106,8 +130,7 @@ MyLocation(
       this.satelliteCount);
 ```
 
-I've added some companion methods which can be used from *MyLocation*, such as 
-
+- I've added some companion methods which can be used from *MyLocation*, such as 
 
 ```dart
 // will fetch you name of direction of movement from bearing value
@@ -123,33 +146,17 @@ getSpeedInKiloMetersPerHour();
 getParsedTimeString();
 ```
 
-## important points
+## notes
 
 You can also set some optional named parameters while invoking methods from *Locate* class.
 
-In case of following method, you can also set *provider*, to be *LocationProvider.Network*, if you want to use Network based Location only.
-
-```dart
-requestLocationPermission(
-      {String provider: LocationProvider.GPS}); // default value is LocationProvider.GPS
-```
+While requesting permission, you can set *provider*
+  - *LocationProvider.Network*, if you want to use Network based Location
+  - *LocationProvider.GPS*, if you want to use GPS based Location **[ default ]**
 
 Before requesting Location Data Feed, you can also set via which location manager to fetch data and location data provider name.
 
-**Note:: If you are planning use LocationServiceProvider.GMSBasedLocation, for fetching data, make sure you've requested for permission of accessing FINE Location. And also use LocationProvider.GPS as locationProvider parameter's value.** 
-
-Otherwise while using *LocationServiceProvider.LocationManagerBasedLocation* as locationServiceProvider, you may either use *LocationProvider.GPS* or *LocationProvider.Network*, depending upon your requested permissions.
-
-```dart
-getLocationDataFeed(
-      {String locationServiceProvider:
-          LocationServiceProvider.LocationManagerBasedLocation,
-      String locationProvider: LocationProvider.GPS});
-```
-
-If you've FINE Location access permission, you can simply request for Network Provider based location data.
-
-
-Hope it was helpful.
-
-Show some <3, to this venture, by putting star on GitHub.
+  - For `LocationServiceProvider.GMSBasedLocation`, make sure you've declared & requested for permission of accessing FINE Location.
+  - Otherwise for `LocationServiceProvider.LocationManagerBasedLocation` as `locationServiceProvider`, you may use any of them, depending upon your declared & requested permissions. 
+    - `LocationProvider.GPS`
+    - `LocationProvider.Network`
