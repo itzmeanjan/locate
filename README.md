@@ -4,7 +4,7 @@
 
 A Flutter plugin to fetch GPS/ Network based Location Data Feed on Android.
 
-**This flutter plugin is readily availble for [use](https://pub.dev/packages/locate).** 
+**locate v1.2.0 is readily availble for [use](https://pub.dev/packages/locate).** 
 
 # intro
 
@@ -25,7 +25,7 @@ It has **androidX** support, along with latest version of all dependencies.
 
 ```yaml
 dependencies:
-  locate: ^1.1.0
+  locate: ^1.2.0
 ```
 
 - Fetch flutter packages from pub.dev
